@@ -1,6 +1,6 @@
 import numpy as np
 import pandas as pd
-import matplotlib.pyplot as plt
+# import matplotlib.pyplot as plt
 import streamlit as st
 
 #function to load data
@@ -134,6 +134,6 @@ if __name__ == '__main__':
         st.markdown(e_title, unsafe_allow_html=True)  # create markdowm
         #ploting
         sp_data = Load('SP500.pkl') #load data base
-        fig, ax = plt.subplots(1,2)
-        ax[0].plot(x=sp_data[0], y=sp_data[1])
-        st.pyplot(fig)
+        # fig, ax = plt.subplots(1,2)
+        # ax[0].plot(x=sp_data[0], y=sp_data[1])
+        # st.pyplot(fig)
