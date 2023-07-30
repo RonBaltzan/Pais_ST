@@ -37,7 +37,7 @@ if __name__ == '__main__':
         res = list(np.isin(l_gus[0], l_won[0]))  # comparing guess to actual no.
         # checking right guessed
         res = [x for x in res if x is False]    #dropping False values
-        count = str(len(res))  # counter for right guessed (only true values)
+        guess = str(len(res))  # num of right resular numbers guessed
         for v in res:
             if v == True:
                 count = count + 1
