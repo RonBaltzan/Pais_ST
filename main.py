@@ -99,6 +99,8 @@ if __name__ == '__main__':
     num = sel_num() #load streamlit numbers selector
     data = Load('data_20230730.pkl') #load data base
     if len(num[0]) == 6 and len(num[1]) == 1: #when input completed
+        st.balloons()
+        st.balloons()
         res = check(num, data) #check results for input
         db_highest = res[res['Prize sum'] == res['Prize sum'].max()].reset_index() #finding hightest prize won
         #Printing highest prize won
