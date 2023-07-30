@@ -48,7 +48,7 @@ if __name__ == '__main__':
         # checking which prize won
         if guess in list(df_ball['Guess type']):
             i = list(df_ball['Guess type']).index(guess) #getting index
-             prz_no = df_ball.loc[j, 'Prize No.']  # getting prize sum
+            prz_no = df_ball.loc[j, 'Prize No.']  # getting prize sum
             prz_sum = df_ball.loc[j, 'Prize sum [NIS]']  # getting prize sum
         return [prz_no, prz_sum]
 
