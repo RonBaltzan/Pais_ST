@@ -109,7 +109,7 @@ if __name__ == '__main__':
         ballot1 = str(db_highest.loc[0, 'Prize no.']) # Building string
         ballot2 = str(db_highest.loc[0, 'Ballot No.'])
         ballot3 = str(db_highest.loc[0, 'Date'])
-        b_title = f'<p style="font-family:sans-serif; color:Orange; font-size: 16px;">[Prize no. {ballot1}  at Ballot no. {ballot2} ({ballot3})]</p>'  # define text
+        b_title = f'<p style="font-family:sans-serif; color:Orange; font-size: 14px;">[Prize no. {ballot1}  at Ballot no. {ballot2} ({ballot3})]</p>'  # define text
         st.markdown(b_title , unsafe_allow_html=True)  # create markdowm
         #calculating parameteres
         rev = sum(res['Prize sum']) # revnue
