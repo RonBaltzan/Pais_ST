@@ -29,11 +29,9 @@ if __name__ == '__main__':
     # df_ball: ballot data
     # output:
     # [#prize no., prize sum]
-    import numpy as np
 
 
-def i_won(l_gus, l_won, df_ball):
-	 # checking how many regular no.gueesed
+def i_won(l_gus, l_won, df_ball):# checking how many regular no.gueesed
 	 res = list(np.isin(l_gus[0], l_won[0]))  # comparing guess to actual no.
 	 # checking right guessed
 	 count = 0
@@ -73,24 +71,24 @@ def check(guess, db):
 #input: number
 #output: formated no.
 def num_format(number):
-l = []
-num = str(number)
-tmp = ''
-for i in range(len(num) - 1, -1, -1):
-    #in case there is a negative number
-    if num[i] == '-':
-	break
-    tmp = num[i] + tmp
-    if len(tmp) == 3:
-	l.append(tmp)
-	tmp = ''
-if len(tmp) > 0:
-    l.append(tmp)
-mod_num = (',').join(l[::-1])
-# in case there is a negative number
-if num[i] == '-':
-    mod_num = '-'+mod_num
-return mod_num
+  l = []
+  num = str(number)
+  tmp = ''
+  for i in range(len(num) - 1, -1, -1):
+      #in case there is a negative number
+      if num[i] == '-':
+  	break
+      tmp = num[i] + tmp
+      if len(tmp) == 3:
+  	l.append(tmp)
+  	tmp = ''
+  if len(tmp) > 0:
+      l.append(tmp)
+  mod_num = (',').join(l[::-1])
+  # in case there is a negative number
+  if num[i] == '-':
+      mod_num = '-'+mod_num
+  return mod_num
 ###########################################
 #running code
     m_title = '<p style="font-family:sans-serif;text-align: center; color:Blue; font-size: 48px;">Could You Be a Milionare?</p>'
