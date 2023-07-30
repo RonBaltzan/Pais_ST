@@ -109,7 +109,7 @@ if __name__ == '__main__':
         ballot1 = str(db_highest.loc[0, 'Prize no.']) # Building string
         ballot2 = str(db_highest.loc[0, 'Ballot No.'])
         ballot3 = str(db_highest.loc[0, 'Date'])
-        b_title = f'<p style="font-family:sans-serif; color:Black; font-size: 16px;">[Prize no. {ballot1}  at Ballot no. {ballot2} ({ballot3})]</p>'  # define text
+        b_title = f'<p style="font-family:sans-serif; color:Orange; font-size: 16px;">[Prize no. {ballot1}  at Ballot no. {ballot2} ({ballot3})]</p>'  # define text
         st.markdown(b_title , unsafe_allow_html=True)  # create markdowm
         #calculating parameteres
         rev = sum(res['Prize sum']) # revnue
@@ -118,12 +118,12 @@ if __name__ == '__main__':
         # Printing highest total winning sum
         rev = num_format(rev) #formating
         rev = str(rev + u"\u20AA")
-        r_title = f'<p style="font-family:sans-serif;font-weight:bold;  color:Black; font-size: 16px;">Winnings Total: {rev} </p>'  # define text
+        r_title = f'<p style="font-family:sans-serif;font-weight:bold;  color:Orange; font-size: 16px;">Winnings Total: {rev} </p>'  # define text
         st.markdown(r_title, unsafe_allow_html=True)  # create markdowm
         # Printing highest totalinvetment sum
         inv = num_format(inv) #formating
         inv = str(inv + u"\u20AA")
-        i_title = f'<p style="font-family:sans-serif;font-weight:bold;  color:Black; font-size: 16px;">Investment Total: {inv} </p>'  # define text
+        i_title = f'<p style="font-family:sans-serif;font-weight:bold;  color:Orange; font-size: 16px;">Investment Total: {inv} </p>'  # define text
         st.markdown(i_title, unsafe_allow_html=True)  # create markdowm
         # Printing highest total winning sum
         earn = num_format(earn)  # formating
