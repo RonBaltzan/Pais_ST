@@ -20,7 +20,7 @@ def sel_num():
     return [numbers, extra]
     
 if __name__ == '__main__':
-    print('Loading)
+    print('Loading')
 
     # Finding if prize won in ballot
     # input:
