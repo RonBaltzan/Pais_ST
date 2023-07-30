@@ -18,9 +18,10 @@ def sel_num():
     extra = st.multiselect('**Enter strong number**', list_strong, max_selections=1)
 
     return [numbers, extra]
-    
+
 if __name__ == '__main__':
-    print('Loading')
+    p_data = r'https://github.com/RonBaltzan/Pais_ST/blob/main/data_20230726.pkl'
+    data = Load(p_data)
 
     # Finding if prize won in ballot
     # input:
@@ -29,29 +30,32 @@ if __name__ == '__main__':
     # df_ball: ballot data
     # output:
     # [#prize no., prize sum]
+    import numpy as np
 
 
-def i_won(l_gus, l_won, df_ball):# checking how many regular no.gueesed
-	 res = list(np.isin(l_gus[0], l_won[0]))  # comparing guess to actual no.
-	 # checking right guessed
-	 count = 0
-	 for x in res:
-		 if str(x) == 'True':
-			 count= count+1
-	 guess = str(count)  # num of right resular numbers guessed
-	 # checking extra no.
-	 if l_gus[1][0] == l_won[1]:
-		 guess = guess + 'חזק'  # building guess
-	 # checking which prize won
-	 for i, pla in enumerate((df_ball['Guess type'])):
-		 if (guess == pla or guess[0] == str(pla)):
-			 prz_no = df_ball.loc[i, 'Prize No.']  # getting prize sum
-			 prz_sum = df_ball.loc[i, 'Prize sum [NIS]']  # getting prize sum
-			 break
-		 else:
-			 prz_no = 0  # getting prize sum
-			 prz_sum = 0  # getting prize sum
-	 return [prz_no, prz_sum]
+    def i_won(l_gus, l_won, df_ball):
+        # checking how many regular no.gueesed
+        res = list(np.isin(l_gus[0], l_won[0]))  # comparing guess to actual no.
+        # checking right guessed
+        count = 0
+        for x in res:
+            if str(x) == 'True':
+                count = count + 1
+        guess = str(count)  # num of right resular numbers guessed
+        # checking extra no.
+        if l_gus[1][0] == l_won[1]:
+            guess = guess + 'חזק'  # building guess
+        # checking which prize won
+        for i, pla in enumerate((df_ball['Guess type'])):
+            if (guess == pla or guess[0] == str(pla)):
+                prz_no = df_ball.loc[i, 'Prize No.']  # getting prize sum
+                prz_sum = df_ball.loc[i, 'Prize sum [NIS]']  # getting prize sum
+                break
+            else:
+                prz_no = 0  # getting prize sum
+                prz_sum = 0  # getting prize sum
+        return [prz_no, prz_sum]
+
 
     # function to check ballot summary for given guess
     # Input:
@@ -60,41 +64,41 @@ def i_won(l_gus, l_won, df_ball):# checking how many regular no.gueesed
     # Output:
     # results: dataframe
 
-def check(guess, db):
-	df1 = pd.DataFrame(columns=['Ballot No.', 'Date', 'Winning no.', 'Prize no.', 'Prize sum'])
-	for i in range(len(db)):
-	    [p_num, p_sum] = i_won(guess, db.loc[i, 'Winning numbers'], db.loc[i, 'Prizes data'])  # getting current prize sum
-	    df1.loc[len(df1)] = [db.loc[i, 'Ballot no.'], db.loc[i, 'Date'], db.loc[i, 'Winning numbers'], p_num, p_sum]
-	return df1
+    def check(guess, db):
+        df1 = pd.DataFrame(columns=['Ballot No.', 'Date', 'Winning no.', 'Prize no.', 'Prize sum'])
+        for i in range(len(db)):
+            [p_num, p_sum] = i_won(guess, db.loc[i, 'Winning numbers'], db.loc[i, 'Prizes data'])  # getting current prize sum
+            df1.loc[len(df1)] = [db.loc[i, 'Ballot no.'], db.loc[i, 'Date'], db.loc[i, 'Winning numbers'], p_num, p_sum]
+        return df1
 
-#function to format numbers with ','
-#input: number
-#output: formated no.
-def num_format(number):
-  l = []
-  num = str(number)
-  tmp = ''
-  for i in range(len(num) - 1, -1, -1):
-      #in case there is a negative number
-      if num[i] == '-':
-  	break
-      tmp = num[i] + tmp
-      if len(tmp) == 3:
-  	l.append(tmp)
-  	tmp = ''
-  if len(tmp) > 0:
-      l.append(tmp)
-  mod_num = (',').join(l[::-1])
-  # in case there is a negative number
-  if num[i] == '-':
-      mod_num = '-'+mod_num
-  return mod_num
+    #function to format numbers with ','
+    #input: number
+    #output: formated no.
+    def num_format(number):
+        l = []
+        num = str(number)
+        tmp = ''
+        for i in range(len(num) - 1, -1, -1):
+            #in case there is a negative number
+            if num[i] == '-':
+                break
+            tmp = num[i] + tmp
+            if len(tmp) == 3:
+                l.append(tmp)
+                tmp = ''
+        if len(tmp) > 0:
+            l.append(tmp)
+        mod_num = (',').join(l[::-1])
+        # in case there is a negative number
+        if num[i] == '-':
+            mod_num = '-'+mod_num
+        return mod_num
 ###########################################
 #running code
     m_title = '<p style="font-family:sans-serif;text-align: center; color:Blue; font-size: 48px;">Could You Be a Milionare?</p>'
     st.markdown(m_title, unsafe_allow_html=True)
     num = sel_num() #load streamlit numbers selector
-    data = Load('data_20230726.pkl') #load data base
+    data = Load(r'C:\Users\Livnat\Desktop\ron\Pais\data_20230726.pkl') #load data base
     if len(num[0]) == 6 and len(num[1]) == 1: #when input completed
         res = check(num, data) #check results for input
         db_highest = res[res['Prize sum'] == res['Prize sum'].max()].reset_index() #finding hightest prize won
