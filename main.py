@@ -134,5 +134,6 @@ if __name__ == '__main__':
         st.markdown(e_title, unsafe_allow_html=True)  # create markdowm
         #ploting
         sp_data = Load('SP500.pkl') #load data base
-        fig = px.line(x=sp_data[0], y=sp_data[1])
-        st.plotly_chart(fig, theme=None, use_container_width=True)
+        fig, ax = plt.subplots(1,2)
+        ax[0].p;ot(x=sp_data[0], y=sp_data[1])
+        st.pyplot(fig)
