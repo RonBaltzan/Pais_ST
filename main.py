@@ -113,7 +113,7 @@ if __name__ == '__main__':
     m_title = '<p style="font-family:sans-serif;text-align: center; color:Blue; font-size: 48px;">Could You Be a Milionare?</p>'
     st.markdown(m_title, unsafe_allow_html=True)
     num = sel_num() #load streamlit numbers selector
-    data = Load('https://github.com/RonBaltzan/Pais_ST/blob/main/data_20230726.pkl') #load data base
+    data = Load('data_20230726.pkl') #load data base
     if len(num[0]) == 6 and len(num[1]) == 1: #when input completed
         res = check(num, data) #check results for input
         db_highest = res[res['Prize sum'] == res['Prize sum'].max()].reset_index() #finding hightest prize won
