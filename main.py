@@ -94,6 +94,7 @@ if __name__ == '__main__':
         return mod_num
 ###########################################
 #running code
+    st.markdown("""<style>.reportview-container {background: url("background.jpg")}, unsafe_allow_html=True)
     m_title = '<p style="font-family:sans-serif;text-align: center; color:Blue; font-size: 48px;">Could You Be a Milionare?</p>'
     st.markdown(m_title, unsafe_allow_html=True)
     num = sel_num() #load streamlit numbers selector
