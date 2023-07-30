@@ -32,26 +32,28 @@ if __name__ == '__main__':
     import numpy as np
 
 
-    def i_won(l_gus, l_won, df_ball):
-        # checking how many regular no.gueesed
-        res = list(np.isin(l_gus[0], l_won[0]))  # comparing guess to actual no.
-        # checking right guessed
-        res = [x for x in res if x is False]    #dropping False values
-        guess = str(len(res))  # num of right resular numbers guessed
-        # checking extra no.
-        # if won
-        if l_gus[1][0] == l_won[1]:
-            guess = guess + 'חזק'  # building guess
-        # checking which prize won
-        if guess in list(df_ball['Guess type']):
-            j = list(df_ball['Guess type']).index(guess) #getting index
-            prz_no = df_ball.loc[j, 'Prize No.']  # getting prize sum
-            prz_sum = df_ball.loc[j, 'Prize sum [NIS]']  # getting prize sum
-        else:
-            prz_no = 0  # getting prize sum
-            prz_sum = 0  # getting prize sum
-        
-        return [prz_no, prz_sum]
+def i_won(l_gus, l_won, df_ball):
+	 # checking how many regular no.gueesed
+	 res = list(np.isin(l_gus[0], l_won[0]))  # comparing guess to actual no.
+	 # checking right guessed
+	 count = 0
+	 for x in res:
+		 if str(x) == 'True':
+			 count= count+1
+	 guess = str(count)  # num of right resular numbers guessed
+	 # checking extra no.
+	 if l_gus[1][0] == l_won[1]:
+		 guess = guess + 'חזק'  # building guess
+	 # checking which prize won
+	 for i, pla in enumerate((df_ball['Guess type'])):
+		 if (guess == pla or guess[0] == str(pla)):
+			 prz_no = df_ball.loc[i, 'Prize No.']  # getting prize sum
+			 prz_sum = df_ball.loc[i, 'Prize sum [NIS]']  # getting prize sum
+			 break
+		 else:
+			 prz_no = 0  # getting prize sum
+			 prz_sum = 0  # getting prize sum
+	 return [prz_no, prz_sum]
 
 
     # function to check ballot summary for given guess
