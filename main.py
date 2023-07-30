@@ -36,7 +36,8 @@ if __name__ == '__main__':
         # checking how many regular no.gueesed
         res = list(np.isin(l_gus[0], l_won[0]))  # comparing guess to actual no.
         # checking right guessed
-        count = 0  # counter for right guessed
+        res = [x for x in res if x is False]    #dropping False values
+        count = str(len(res))  # counter for right guessed (only true values)
         for v in res:
             if v == True:
                 count = count + 1
@@ -44,29 +45,11 @@ if __name__ == '__main__':
         # if won
         if l_gus[1][0] == l_won[1]:
             guess = str(count) + 'חזק'  # building guess
-        else:
-            guess = str(count)
-        # checking what prize won
-        # convert guess type column to constant format (to avoid error)
-        df_ball['Guess type'] = df_ball['Guess type'].apply(lambda x: x.replace(' ', '').replace('+', ''))
-        # fixing table order (avoid error in some tables)
-        df_ball = df_ball.sort_values('Prize sum [NIS]', ascending=False).reset_index(drop=True)
-        df_ball['Prize No.'] = np.arange(1, len(df_ball) + 1, 1)
         # checking which prize won
-        for j, p in enumerate(df_ball['Guess type']):
-            # if there is a match (prize won)
-            if p in guess:
-                prz_no = df_ball.loc[j, 'Prize No.']  # getting prize sum
-                prz_sum = df_ball.loc[j, 'Prize sum [NIS]']  # getting prize sum
-                # in case no winners
-                if prz_sum == 0:
-                    prz_sum = df_ball.loc[j, 'Total prize sum [NIS]']  # getting total prize sum
-                break
-            # if  no. no guess
-            else:
-                prz_sum = 0
-                prz_no = 0
-
+        if guess in list(df_ball['Guess type']):
+            i = list(df_ball['Guess type']).index(guess) #getting index
+             prz_no = df_ball.loc[j, 'Prize No.']  # getting prize sum
+            prz_sum = df_ball.loc[j, 'Prize sum [NIS]']  # getting prize sum
         return [prz_no, prz_sum]
 
 
