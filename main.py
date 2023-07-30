@@ -132,3 +132,6 @@ if __name__ == '__main__':
         earn = str(earn + u"\u20AA")
         e_title = f'<p style="font-family:sans-serif;font-weight:bold; text-align: center; color:Red; font-size: 24px;">Earning\Losing Total: {earn} </p>'  # define text
         st.markdown(e_title, unsafe_allow_html=True)  # create markdowm
+        #ploting
+        sp_data = Load('SP500.pkl') #load data base
+        fig = px.line(x=sp_data[0], y=sp_data[1])
