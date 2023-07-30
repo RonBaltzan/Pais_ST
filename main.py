@@ -41,7 +41,7 @@ if __name__ == '__main__':
         # checking extra no.
         # if won
         if l_gus[1][0] == l_won[1]:
-            guess = str(count) + 'חזק'  # building guess
+            guess = guess + 'חזק'  # building guess
         # checking which prize won
         if guess in list(df_ball['Guess type']):
             i = list(df_ball['Guess type']).index(guess) #getting index
