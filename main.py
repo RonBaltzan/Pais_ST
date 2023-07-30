@@ -38,9 +38,6 @@ if __name__ == '__main__':
         # checking right guessed
         res = [x for x in res if x is False]    #dropping False values
         guess = str(len(res))  # num of right resular numbers guessed
-        for v in res:
-            if v == True:
-                count = count + 1
         # checking extra no.
         # if won
         if l_gus[1][0] == l_won[1]:
