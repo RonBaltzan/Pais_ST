@@ -113,7 +113,7 @@ if __name__ == '__main__':
         st.markdown(b_title , unsafe_allow_html=True)  # create markdowm
         #calculating parameteres
         rev = sum(res['Prize sum']) # revnue
-        inv = len(data) * 42  #  investment
+        inv = len(data) * 6  #  investment
         earn = rev - inv  # earnings
         # Printing highest total winning sum
         rev = num_format(rev) #formating
