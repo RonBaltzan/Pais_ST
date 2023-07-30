@@ -51,7 +51,7 @@ if __name__ == '__main__':
             prz_no = df_ball.loc[j, 'Prize No.']  # getting prize sum
             prz_sum = df_ball.loc[j, 'Prize sum [NIS]']  # getting prize sum
         else:
-             prz_no = 0  # getting prize sum
+            prz_no = 0  # getting prize sum
             prz_sum = 0  # getting prize sum
         
         return [prz_no, prz_sum]
