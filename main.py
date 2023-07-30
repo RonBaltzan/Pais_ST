@@ -55,7 +55,6 @@ def i_won(l_gus, l_won, df_ball):
 			 prz_sum = 0  # getting prize sum
 	 return [prz_no, prz_sum]
 
-
     # function to check ballot summary for given guess
     # Input:
     # guess: [[6 numbers], strong number]
@@ -63,35 +62,35 @@ def i_won(l_gus, l_won, df_ball):
     # Output:
     # results: dataframe
 
-    def check(guess, db):
-        df1 = pd.DataFrame(columns=['Ballot No.', 'Date', 'Winning no.', 'Prize no.', 'Prize sum'])
-        for i in range(len(db)):
-            [p_num, p_sum] = i_won(guess, db.loc[i, 'Winning numbers'], db.loc[i, 'Prizes data'])  # getting current prize sum
-            df1.loc[len(df1)] = [db.loc[i, 'Ballot no.'], db.loc[i, 'Date'], db.loc[i, 'Winning numbers'], p_num, p_sum]
-        return df1
+def check(guess, db):
+df1 = pd.DataFrame(columns=['Ballot No.', 'Date', 'Winning no.', 'Prize no.', 'Prize sum'])
+for i in range(len(db)):
+    [p_num, p_sum] = i_won(guess, db.loc[i, 'Winning numbers'], db.loc[i, 'Prizes data'])  # getting current prize sum
+    df1.loc[len(df1)] = [db.loc[i, 'Ballot no.'], db.loc[i, 'Date'], db.loc[i, 'Winning numbers'], p_num, p_sum]
+return df1
 
-    #function to format numbers with ','
-    #input: number
-    #output: formated no.
-    def num_format(number):
-        l = []
-        num = str(number)
-        tmp = ''
-        for i in range(len(num) - 1, -1, -1):
-            #in case there is a negative number
-            if num[i] == '-':
-                break
-            tmp = num[i] + tmp
-            if len(tmp) == 3:
-                l.append(tmp)
-                tmp = ''
-        if len(tmp) > 0:
-            l.append(tmp)
-        mod_num = (',').join(l[::-1])
-        # in case there is a negative number
-        if num[i] == '-':
-            mod_num = '-'+mod_num
-        return mod_num
+#function to format numbers with ','
+#input: number
+#output: formated no.
+def num_format(number):
+l = []
+num = str(number)
+tmp = ''
+for i in range(len(num) - 1, -1, -1):
+    #in case there is a negative number
+    if num[i] == '-':
+	break
+    tmp = num[i] + tmp
+    if len(tmp) == 3:
+	l.append(tmp)
+	tmp = ''
+if len(tmp) > 0:
+    l.append(tmp)
+mod_num = (',').join(l[::-1])
+# in case there is a negative number
+if num[i] == '-':
+    mod_num = '-'+mod_num
+return mod_num
 ###########################################
 #running code
     m_title = '<p style="font-family:sans-serif;text-align: center; color:Blue; font-size: 48px;">Could You Be a Milionare?</p>'
