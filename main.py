@@ -20,7 +20,7 @@ def sel_num():
     return [numbers, extra]
 
 if __name__ == '__main__':
-    p_data = r'C:\Users\Livnat\Desktop\ron\GitHub\Pais_ST\data_20230726.pkl'
+    p_data = r'https://github.com/RonBaltzan/Pais_ST/blob/main/data_20230726.pkl'
     data = Load(p_data)
 
     # Finding if prize won in ballot
