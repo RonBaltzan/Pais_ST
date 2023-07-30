@@ -8,9 +8,7 @@ import streamlit as st
 #output: data frame
 
 def Load(path):
-    raw = open(path, 'rb')
-    print(raw)
-    df = pd.read_pickle(raw)
+    df = pd.read_pickle(path)
     return df
 
 def sel_num():
