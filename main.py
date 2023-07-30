@@ -9,6 +9,7 @@ import streamlit as st
 
 def Load(path):
     raw = open(path, 'rb')
+    print(raw)
     df = pd.read_pickle(raw)
     return df
 
