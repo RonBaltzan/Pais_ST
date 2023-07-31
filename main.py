@@ -105,16 +105,16 @@ if __name__ == '__main__':
         return mod_num
 ###########################################
 #running code
+    data = Load('data_20230730.pkl') #load data base
     m_title = '<p style="font-family:sans-serif;text-align: center; color:Blue; font-size: 48px;">Could You Be a Milionare?</p>'
     st.markdown(m_title, unsafe_allow_html=True)
     m_title = '<p style="font-family:sans-serif;text-align: center; color:Blue; font-size: 18px;">[Based on real results of over 2500 ballots]</p>'
     st.markdown(m_title, unsafe_allow_html=True)
     num = sel_num() #load streamlit numbers selector
-    data = Load('data_20230730.pkl') #load data base
     if len(num[0]) == 6 and len(num[1]) == 1: #when input completed
         st.balloons()
-        st.balloons()
         res = check(num, data) #check results for input
+        st.balloons()
         db_highest = res[res['Prize sum'] == res['Prize sum'].max()].reset_index() #finding hightest prize won
         #Printing highest prize won
         high = num_format(db_highest.loc[0, 'Prize sum'])+ u"\u20AA" #Building string
