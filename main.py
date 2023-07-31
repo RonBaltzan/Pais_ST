@@ -4,6 +4,7 @@ import streamlit as st
 import plotly.express as px
 import plotly.graph_objects as go
 import datetime
+import numpy as np
 
 #function to load data
 #input: path to PKL format
@@ -13,9 +14,10 @@ def Load(path):
     df = pd.read_pickle(path)
     return df
 
+#Loading number selection GUI
 def sel_num():
-    list_num = list(np.arange(1, 37, 1))
-    list_strong = list(np.arange(1, 8, 1))
+    list_num = list(np.arange(1, 37, 1)) #list for regular numbers
+    list_strong = list(np.arange(1, 8, 1)) #list for strong number
     numbers = st.multiselect('**Enter regular numbers**', list_num, max_selections=6)
     extra = st.multiselect('**Enter strong number**', list_strong, max_selections=1)
 
@@ -31,9 +33,7 @@ if __name__ == '__main__':
     # df_ball: ballot data
     # output:
     # [#prize no., prize sum]
-    import numpy as np
-
-
+    
     def i_won(l_gus, l_won, df_ball):
         # checking how many regular no.gueesed
         res = list(np.isin(l_gus[0], l_won[0]))  # comparing guess to actual no.
@@ -153,8 +153,8 @@ if __name__ == '__main__':
         #ploting
         sp_data = Load('SP500.pkl') #load data base
         # S&P title
-        sp_tot = str(int(np.round(sp_data[1][len(sp_data[1])-1],0)))
-        sp_tot= num_format(sp_tot)
+        sp_tot = str(int(np.round(sp_data[1][len(sp_data[1])-1],0))) #finding total sum from S&P investment
+        sp_tot= num_format(sp_tot) #change format
         sp_tot = sp_tot + u"\u20AA"
         sp_title = f'<p style="font-family:sans-serif;font-weight:bold; text-align: center; color:Grey; font-size: 18px;">If you would have invest instead in S&P 500, you could have: {sp_tot} </p>'  # define text
         st.markdown(sp_title, unsafe_allow_html=True)  # create markdowm
@@ -162,9 +162,11 @@ if __name__ == '__main__':
         #S&P 500 chart
         res['Date'] = pd.to_datetime(res['Date'], format='%d/%m/%Y').dt.strftime('%Y') #change format
         fig = go.Figure()
+        #S&P plot
         fig.add_trace(go.Scatter(x=sp_data[0],y=sp_data[1],
                                  mode='lines',
                                  name='S&P 500'))
+        #Lotto plot
         fig.add_trace(go.Line(x=res['Date'], y=res['Total sum'],
                                  mode='lines',
                                  name='Lotto', fillcolor= 'Black'))
