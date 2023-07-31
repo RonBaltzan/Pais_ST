@@ -110,7 +110,7 @@ if __name__ == '__main__':
     m_title = '<p style="font-family:sans-serif;text-align: center; color:Blue; font-size: 18px;">[Based on real results of over 2500 ballots]</p>'
     st.markdown(m_title, unsafe_allow_html=True)
     num = sel_num() #load streamlit numbers selector
-    data = Load(r'C:\Users\Livnat\Desktop\ron\GitHub\Pais_ST\data_20230730.pkl') #load data base
+    data = Load('data_20230730.pkl') #load data base
     if len(num[0]) == 6 and len(num[1]) == 1: #when input completed
         st.balloons()
         st.balloons()
@@ -148,7 +148,7 @@ if __name__ == '__main__':
         e_title = f'<p style="font-family:sans-serif;font-weight:bold; text-align: center; color:Red; font-size: 24px;">Earning\Losing Total: {earn} </p>'  # define text
         st.markdown(e_title, unsafe_allow_html=True)  # create markdowm
         #ploting
-        sp_data = Load(r'C:\Users\Livnat\Desktop\ron\GitHub\Pais_ST\SP500.pkl') #load data base
+        sp_data = Load('SP500.pkl') #load data base
         # S&P title
         sp_tot = str(int(np.round(sp_data[1][len(sp_data[1])-1],0)))
         sp_tot= num_format(sp_tot)
