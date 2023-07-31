@@ -115,8 +115,8 @@ if __name__ == '__main__':
     if len(Reg_num) == 6:
         extra = st.multiselect('**Enter strong number**',list(np.arange(1, 8, 1), max_selections=1)
     #num = sel_num() #load streamlit numbers selector
-    if len(num[0]) == 6 and len(num[1]) == 1: #when input completed
-        num= [Reg_num, num]
+    if len(Reg_num) == 6 and len(extra]) == 1: #when input completed
+        num= [Reg_num, extra[0]]
         st.balloons()
         res = check(num, data) #check results for input
         st.balloons()
