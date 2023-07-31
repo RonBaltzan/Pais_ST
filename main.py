@@ -113,7 +113,7 @@ if __name__ == '__main__':
     #Enter numbers
     Reg_num = st.multiselect('**Enter regular numbers**', list(np.arange(1, 37, 1)), max_selections=6)     #regular numbers
     if len(Reg_num) == 6:
-        extra = st.multiselect('**Enter strong number**',list(np.arange(1, 8, 1), max_selections=1))
+        extra = st.multiselect('**Enter strong number**',list(np.arange(1, 8, 1)), max_selections=1)
     if (len(Reg_num) == 6 and len(extra) == 1): #when input completed
         num= [Reg_num, extra]
         st.balloons()
