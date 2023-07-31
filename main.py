@@ -1,6 +1,9 @@
 import numpy as np
 import pandas as pd
 import streamlit as st
+import plotly.express as px
+import plotly.graph_objects as go
+import datetime
 
 #function to load data
 #input: path to PKL format
@@ -67,6 +70,15 @@ if __name__ == '__main__':
         for i in range(len(db)):
             [p_num, p_sum] = i_won(guess, db.loc[i, 'Winning numbers'], db.loc[i, 'Prizes data'])  # getting current prize sum
             df1.loc[len(df1)] = [db.loc[i, 'Ballot no.'], db.loc[i, 'Date'], db.loc[i, 'Winning numbers'], p_num, p_sum]
+        #calculating total sum
+        df1['Total sum'] = ""
+        t_price = 6 #ticket price
+        for i, s in enumerate(df1['Prize sum']):
+            if i==0:
+                df1.loc[i, 'Total sum'] = (s - t_price)
+            else:
+                tmp = s-t_price+df1.loc[i-1, 'Total sum']
+                df1.loc[i, 'Total sum'] = tmp
         return df1
 
     #function to format numbers with ','
@@ -95,8 +107,10 @@ if __name__ == '__main__':
 #running code
     m_title = '<p style="font-family:sans-serif;text-align: center; color:Blue; font-size: 48px;">Could You Be a Milionare?</p>'
     st.markdown(m_title, unsafe_allow_html=True)
+    m_title = '<p style="font-family:sans-serif;text-align: center; color:Blue; font-size: 18px;">[Based on real results of over 2500 ballots]</p>'
+    st.markdown(m_title, unsafe_allow_html=True)
     num = sel_num() #load streamlit numbers selector
-    data = Load('data_20230730.pkl') #load data base
+    data = Load(r'C:\Users\Livnat\Desktop\ron\GitHub\Pais_ST\data_20230730.pkl') #load data base
     if len(num[0]) == 6 and len(num[1]) == 1: #when input completed
         st.balloons()
         st.balloons()
@@ -113,6 +127,8 @@ if __name__ == '__main__':
         b_title = f'<p style="font-family:sans-serif; color:Orange; font-size: 14px;">[Prize no. {ballot1}  at Ballot no. {ballot2} ({ballot3})]</p>'  # define text
         st.markdown(b_title , unsafe_allow_html=True)  # create markdowm
         #calculating parameteres
+        res_title = f'<p style="font-family:sans-serif;font-weight:bold; text-decoration: underline;  color:Grey; font-size: 16px;">Summary of Total Results: </p>'  # define text
+        st.markdown(res_title, unsafe_allow_html=True)  # create markdowm
         rev = sum(res['Prize sum']) # revnue
         inv = len(data) * 6  #  investment
         earn = rev - inv  # earnings
@@ -124,7 +140,7 @@ if __name__ == '__main__':
         # Printing highest totalinvetment sum
         inv = num_format(inv) #formating
         inv = str(inv + u"\u20AA")
-        i_title = f'<p style="font-family:sans-serif;font-weight:bold;  color:Orange; font-size: 16px;">Investment Total: {inv} </p>'  # define text
+        i_title = f'<p style="font-family:sans-serif;font-weight:bold;  color:Orange; font-size: 16px;">Investment Total (6 \u20AA per ballot): {inv} </p>'  # define text
         st.markdown(i_title, unsafe_allow_html=True)  # create markdowm
         # Printing highest total winning sum
         earn = num_format(earn)  # formating
@@ -132,4 +148,23 @@ if __name__ == '__main__':
         e_title = f'<p style="font-family:sans-serif;font-weight:bold; text-align: center; color:Red; font-size: 24px;">Earning\Losing Total: {earn} </p>'  # define text
         st.markdown(e_title, unsafe_allow_html=True)  # create markdowm
         #ploting
-        sp_data = Load('SP500.pkl') #load data base
+        sp_data = Load(r'C:\Users\Livnat\Desktop\ron\GitHub\Pais_ST\SP500.pkl') #load data base
+        # S&P title
+        sp_tot = str(int(np.round(sp_data[1][len(sp_data[1])-1],0)))
+        sp_tot= num_format(sp_tot)
+        sp_tot = sp_tot + u"\u20AA"
+        sp_title = f'<p style="font-family:sans-serif;font-weight:bold; text-align: center; color:Grey; font-size: 18px;">If you would have invest instead in S&P 500, you could have: {sp_tot} </p>'  # define text
+        st.markdown(sp_title, unsafe_allow_html=True)  # create markdowm
+        #plot
+        #S&P 500 chart
+        res['Date'] = pd.to_datetime(res['Date'], format='%d/%m/%Y').dt.strftime('%Y') #change format
+        fig = go.Figure()
+        fig.add_trace(go.Scatter(x=sp_data[0],y=sp_data[1],
+                                 mode='lines',
+                                 name='S&P 500'))
+        fig.add_trace(go.Line(x=res['Date'], y=res['Total sum'],
+                                 mode='lines',
+                                 name='Lotto', fillcolor= 'Black'))
+        fig.update_layout(title="Comparasion between investing same amount in Lotto or S&P 500", xaxis_title="Date",
+                          yaxis_title="Profit \ Loss [\u20AA]")
+        st.plotly_chart(fig, theme="streamlit", use_container_width=True)
