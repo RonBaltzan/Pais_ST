@@ -116,7 +116,6 @@ if __name__ == '__main__':
         extra = st.multiselect('**Enter strong number**',list(np.arange(1, 8, 1)), max_selections=1)
     if (len(Reg_num) == 6 and len(extra) == 1): #when input completed
         num= [Reg_num, extra]
-        st.balloons()
         res = check(num, data) #check results for input
         st.balloons()
         db_highest = res[res['Prize sum'] == res['Prize sum'].max()].reset_index() #finding hightest prize won
