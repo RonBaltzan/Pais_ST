@@ -111,6 +111,7 @@ if __name__ == '__main__':
     m_title = '<p style="font-family:sans-serif;text-align: center; color:Blue; font-size: 18px;">[Based on real results of over 2500 ballots]</p>'
     st.markdown(m_title, unsafe_allow_html=True)
     num = sel_num() #load streamlit numbers selector
+    st.balloons()
     if len(num[0]) == 6 and len(num[1]) == 1: #when input completed
         st.balloons()
         res = check(num, data) #check results for input
