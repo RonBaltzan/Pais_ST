@@ -110,9 +110,13 @@ if __name__ == '__main__':
     st.markdown(m_title, unsafe_allow_html=True)
     m_title = '<p style="font-family:sans-serif;text-align: center; color:Blue; font-size: 18px;">[Based on real results of over 2500 ballots]</p>'
     st.markdown(m_title, unsafe_allow_html=True)
-    num = sel_num() #load streamlit numbers selector
-    st.balloons()
+    #Enter numbers
+    Reg_num = st.multiselect('**Enter regular numbers**', list(np.arange(1, 37, 1)), max_selections=6)     #regular numbers
+    if len(Reg_num) == 6:
+        extra = st.multiselect('**Enter strong number**',list(np.arange(1, 8, 1), max_selections=1)
+    #num = sel_num() #load streamlit numbers selector
     if len(num[0]) == 6 and len(num[1]) == 1: #when input completed
+        num= [Reg_num, num]
         st.balloons()
         res = check(num, data) #check results for input
         st.balloons()
